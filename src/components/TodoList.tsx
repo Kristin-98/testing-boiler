@@ -28,9 +28,9 @@ function TodoList({ initialTodos = [] }: TodoListProps) {
       text"
         value={newTodo}
         onChange={(e) => setNewTodo(e.target.value)}
-        placeholder="Skriv ny todooooo"
+        placeholder="Skriv ny todo..."
       />
-      <button onClick={addTodo}>Lägg till din todo</button>
+      <button onClick={addTodo}>Lägg till</button>
     </div>
   );
 }
