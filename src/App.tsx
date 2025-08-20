@@ -1,15 +1,15 @@
 import CounterButton from "./components/CounterButton";
-import TodoItem from "./components/TodoItem";
 import TodoList from "./components/TodoList";
 
 function App() {
+  const myTodos = ["köp 1", "köp 2"];
+
   return (
     <div>
       <h1>Vite + React</h1>
 
       <CounterButton />
-      <TodoItem />
-      <TodoList />
+      <TodoList todos={myTodos} />
     </div>
   );
 }
