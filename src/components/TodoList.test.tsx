@@ -67,4 +67,26 @@ describe("TodoList with input", () => {
     expect(screen.getByText("Todo 1")).toBeInTheDocument();
     expect(screen.getByText("Todo 2")).toBeInTheDocument();
   });
+  
+  it("renders correctly when no initialTodos prop is provided", () => {
+    render(<TodoList />);
+    const listItems = screen.queryAllByRole("listitem");
+    expect(listItems).toHaveLength(0);
+  });
+
+  it("clears input after each added todo", () => {
+    render(<TodoList initialTodos={[]} />);
+    const input = screen.getByPlaceholderText(
+      "Skriv ny todo..."
+    ) as HTMLInputElement;
+    const button = screen.getByRole("button", { name: /lägg till/i });
+
+    fireEvent.change(input, { target: { value: "Test 1" } });
+    fireEvent.click(button);
+    expect(input.value).toBe("");
+
+    fireEvent.change(input, { target: { value: "Test 2" } });
+    fireEvent.click(button);
+    expect(input.value).toBe("");
+  });
 });
