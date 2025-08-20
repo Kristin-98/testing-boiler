@@ -3,24 +3,68 @@ import { describe, expect, it } from "vitest";
 import TodoList from "./TodoList";
 
 describe("TodoList with input", () => {
-  it("renders initial todos and allows adding new todos", () => {
+  it("renders correctly with initial todos", () => {
     const initialTodos = ["köp 1", "köp 2"];
     render(<TodoList initialTodos={initialTodos} />);
 
     initialTodos.forEach((todo) => {
       expect(screen.getByText(todo)).toBeInTheDocument();
     });
+  });
+
+  it("renders correctly with no initial todos", () => {
+    render(<TodoList initialTodos={[]} />);
+    const listItems = screen.queryAllByRole("listitem");
+    expect(listItems).toHaveLength(0);
+  });
+
+  it("adds a new todo when input is filled and button clicked", () => {
+    const initialTodos: string[] = [];
+    render(<TodoList initialTodos={initialTodos} />);
 
     const input = screen.getByPlaceholderText(
       "Skriv ny todo..."
     ) as HTMLInputElement;
-    const button = screen.getByText("Lägg till");
+    const button = screen.getByRole("button", { name: /lägg till/i });
 
     fireEvent.change(input, { target: { value: "Städa" } });
     fireEvent.click(button);
 
     expect(screen.getByText("Städa")).toBeInTheDocument();
-
     expect(input.value).toBe("");
+  });
+
+  it("does not add empty or whitespace-only todos", () => {
+    render(<TodoList initialTodos={[]} />);
+
+    const input = screen.getByPlaceholderText(
+      "Skriv ny todo..."
+    ) as HTMLInputElement;
+    const button = screen.getByRole("button", { name: /lägg till/i });
+
+    fireEvent.change(input, { target: { value: "   " } });
+    fireEvent.click(button);
+
+    const listItems = screen.queryAllByRole("listitem");
+    expect(listItems).toHaveLength(0);
+  });
+
+  it("adds multiple todos correctly", () => {
+    render(<TodoList initialTodos={[]} />);
+
+    const input = screen.getByPlaceholderText(
+      "Skriv ny todo..."
+    ) as HTMLInputElement;
+    const button = screen.getByRole("button", { name: /lägg till/i });
+
+    fireEvent.change(input, { target: { value: "Todo 1" } });
+    fireEvent.click(button);
+    fireEvent.change(input, { target: { value: "Todo 2" } });
+    fireEvent.click(button);
+
+    const listItems = screen.getAllByRole("listitem");
+    expect(listItems).toHaveLength(2);
+    expect(screen.getByText("Todo 1")).toBeInTheDocument();
+    expect(screen.getByText("Todo 2")).toBeInTheDocument();
   });
 });
