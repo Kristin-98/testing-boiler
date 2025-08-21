@@ -67,7 +67,7 @@ describe("TodoList with input", () => {
     expect(screen.getByText("Todo 1")).toBeInTheDocument();
     expect(screen.getByText("Todo 2")).toBeInTheDocument();
   });
-  
+
   it("renders correctly when no initialTodos prop is provided", () => {
     render(<TodoList />);
     const listItems = screen.queryAllByRole("listitem");
@@ -88,5 +88,25 @@ describe("TodoList with input", () => {
     fireEvent.change(input, { target: { value: "Test 2" } });
     fireEvent.click(button);
     expect(input.value).toBe("");
+  });
+});
+
+describe("TodoList with checkbox", () => {
+  it("allows toggling todos as done/undone", () => {
+    render(<TodoList initialTodos={["Köp kaffe"]} />);
+
+    const checkbox = screen.getByRole("checkbox");
+    const text = screen.getByText("Köp kaffe");
+
+    expect(checkbox).not.toBeChecked();
+    expect(text).not.toHaveStyle("text-decoration: line-through");
+
+    fireEvent.click(checkbox);
+    expect(checkbox).toBeChecked();
+    expect(text).toHaveStyle("text-decoration: line-through");
+
+    fireEvent.click(checkbox);
+    expect(checkbox).not.toBeChecked();
+    expect(text).not.toHaveStyle("text-decoration: line-through");
   });
 });
