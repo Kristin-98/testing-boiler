@@ -16,7 +16,7 @@ function TodoList({ initialTodos = [] }: TodoListProps) {
     initialTodos.map((t) => ({ text: t, done: false }))
   );
   const [newTodo, setNewTodo] = useState("");
-  const [highlight, setHighlight] = useState<string | null>(null);
+  const [chosenTodo, setChosenTodo] = useState<string | null>(null);
 
   const addTodo = () => {
     if (newTodo.trim() === "") return;
@@ -65,11 +65,19 @@ function TodoList({ initialTodos = [] }: TodoListProps) {
             Lägg till
           </button>
         </div>
-        <RandomTodo
-          todos={todos.map((t) => t.text)}
-          onPick={(todo) => setHighlight(todo)}
-        />
-        {highlight && <p>Börja med: {highlight}</p>}
+        {todos.length > 0 && (
+          <div className="flex flex-col items-center gap-2">
+            <RandomTodo
+              todos={todos.map((t) => t.text)}
+              onPick={(todo) => setChosenTodo(todo)}
+            />
+            {chosenTodo && (
+              <p className="text-blue-700 font-semibold">
+                Börja med: {chosenTodo}
+              </p>
+            )}
+          </div>
+        )}
       </form>
     </div>
   );

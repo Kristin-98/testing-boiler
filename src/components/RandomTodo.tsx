@@ -4,25 +4,27 @@ type RandomTodoProps = {
   getRandomTodo?: (todos: string[]) => string;
 };
 
-export default function RandomTodo({
-  todos,
-  onPick,
-  getRandomTodo = (list) =>
-    list[Math.floor(Math.random() * list.length)],
-}: RandomTodoProps) {
-  const handleClick = () => {
-    if (todos.length === 0) return;
-    const random = getRandomTodo(todos);
-    onPick(random);
+function RandomTodo({ todos, onPick, getRandomTodo }: RandomTodoProps) {
+  const pickRandom = () => {
+    const picker =
+      getRandomTodo ??
+      ((list: string[]) => {
+        const index = Math.floor(Math.random() * list.length);
+        return list[index];
+      });
+
+    const todo = picker(todos);
+    onPick(todo);
   };
 
   return (
     <button
-      onClick={handleClick}
-      className="bg-slate-500 text-white px-3 py-1 rounded hover:bg-slate-800 mt-3"
+      onClick={pickRandom}
+      className="bg-blue-600 text-white px-3 py-1 rounded"
     >
-      Slumpa fram en todo
+      Slumpa en todo
     </button>
   );
 }
 
+export default RandomTodo;
