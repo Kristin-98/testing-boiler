@@ -30,7 +30,7 @@ function TodoList({ initialTodos = [] }: TodoListProps) {
 
   return (
     <div>
-      <h1>todo lista rubrik</h1>
+      <h1 className="text-2xl font-bold underline">todo lista rubrik</h1>
       <ul>
         {todos.map((todo, index) => (
           <TodoItem
