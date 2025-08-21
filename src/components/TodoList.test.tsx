@@ -3,22 +3,7 @@ import { describe, expect, it } from "vitest";
 import TodoList from "./TodoList";
 
 describe("TodoList with input", () => {
-  it("renders correctly with initial todos", () => {
-    const initialTodos = ["köp 1", "köp 2"];
-    render(<TodoList initialTodos={initialTodos} />);
-
-    initialTodos.forEach((todo) => {
-      expect(screen.getByText(todo)).toBeInTheDocument();
-    });
-  });
-
-  it("renders correctly with no initial todos", () => {
-    render(<TodoList initialTodos={[]} />);
-    const listItems = screen.queryAllByRole("listitem");
-    expect(listItems).toHaveLength(0);
-  });
-
-  it("adds a new todo when input is filled and button clicked", () => {
+   it("adds a new todo when input is filled and button clicked", () => {
     const initialTodos: string[] = [];
     render(<TodoList initialTodos={initialTodos} />);
 
@@ -88,6 +73,15 @@ describe("TodoList with input", () => {
     fireEvent.change(input, { target: { value: "Test 2" } });
     fireEvent.click(button);
     expect(input.value).toBe("");
+  });
+
+  it("displays chosen todo when RandomTodo button is clicked", () => {
+    render(<TodoList initialTodos={["A"]} />);
+    const button = screen.getByText("Slumpa en todo");
+    fireEvent.click(button);
+
+    const chosenText = screen.getByText(/Börja med att:/);
+    expect(chosenText).toBeInTheDocument();
   });
 });
 

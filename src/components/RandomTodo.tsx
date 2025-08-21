@@ -6,6 +6,7 @@ type RandomTodoProps = {
 
 function RandomTodo({ todos, onPick, getRandomTodo }: RandomTodoProps) {
   const pickRandom = () => {
+    if(todos.length === 0) return;
     const picker =
       getRandomTodo ??
       ((list: string[]) => {
@@ -20,7 +21,7 @@ function RandomTodo({ todos, onPick, getRandomTodo }: RandomTodoProps) {
   return (
     <button
       onClick={pickRandom}
-      className="bg-blue-600 text-white px-3 py-1 rounded"
+      className="bg-slate-700 text-white px-3 py-1 rounded mt-8"
     >
       Slumpa en todo
     </button>

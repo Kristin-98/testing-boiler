@@ -33,13 +33,14 @@ function TodoList({ initialTodos = [] }: TodoListProps) {
   return (
     <div className="flex justify-center items-center h-screen bg-slate-200">
       <form
+        role="form"
         onSubmit={(e) => {
           e.preventDefault();
           addTodo();
         }}
         className="bg-white p-6 rounded shadow-md w-full max-w-md "
       >
-        <h1 className="text-2xl font-bold mb-4 text-center">Todo</h1>
+        <h2 className="text-2xl font-bold mb-4 text-center">To Do</h2>
         <ul className="mb-5 p-4">
           {todos.map((todo, index) => (
             <TodoItem
@@ -65,15 +66,15 @@ function TodoList({ initialTodos = [] }: TodoListProps) {
             Lägg till
           </button>
         </div>
-        {todos.length > 0 && (
+        {todos.some((t)=> !t.done) && (
           <div className="flex flex-col items-center gap-2">
             <RandomTodo
-              todos={todos.map((t) => t.text)}
+              todos={todos.filter((t) => !t.done).map((t) => t.text)}
               onPick={(todo) => setChosenTodo(todo)}
             />
             {chosenTodo && (
               <p className="text-blue-700 font-semibold">
-                Börja med: {chosenTodo}
+                Börja med att: {chosenTodo}
               </p>
             )}
           </div>
