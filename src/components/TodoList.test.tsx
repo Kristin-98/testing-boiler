@@ -2,8 +2,9 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import TodoList from "./TodoList";
 
+// Unit tests
 describe("TodoList with input", () => {
-   it("adds a new todo when input is filled and button clicked", () => {
+  it("adds a new todo when input is filled and button clicked", () => {
     const initialTodos: string[] = [];
     render(<TodoList initialTodos={initialTodos} />);
 
@@ -102,5 +103,23 @@ describe("TodoList with checkbox", () => {
     fireEvent.click(checkbox);
     expect(checkbox).not.toBeChecked();
     expect(text).not.toHaveStyle("text-decoration: line-through");
+  });
+});
+
+// Integration Tests
+describe("TodoList + RandomTodo", () => {
+  it("displays the chosen todo when the random button is clicked", () => {
+    render(<TodoList initialTodos={["A"]} />);
+    fireEvent.click(screen.getByText("Slumpa en todo"));
+
+    expect(screen.getByText(/Börja med att:/)).toBeInTheDocument();
+  });
+
+  it("does not pick todos that are marked as done", () => {
+    render(<TodoList initialTodos={["A", "B"]} />);
+    fireEvent.click(screen.getByLabelText("A"));
+    fireEvent.click(screen.getByText("Slumpa en todo"));
+
+    expect(screen.getByText(/Börja med att:/)).toHaveTextContent("B");
   });
 });

@@ -21,7 +21,7 @@ function RandomTodo({ todos, onPick, getRandomTodo }: RandomTodoProps) {
   return (
     <button
       onClick={pickRandom}
-      className="bg-slate-700 text-white px-3 py-1 rounded mt-8"
+      className="bg-slate-700 hover:bg-slate-900 text-white px-3 py-1 rounded mt-8"
     >
       Slumpa en todo
     </button>
