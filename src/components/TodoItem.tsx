@@ -9,7 +9,8 @@ function TodoItem({ text, done, onToggle }: TodoItemProps) {
     <li>
       <label>
         <input type="checkbox" checked={done} onChange={onToggle} />
-        <span style={{ textDecoration: done ? "line-through" : "none" }}>
+        <span style={{ textDecoration: done ? "line-through" : "none" }}
+        className="p-2">
           {text}
         </span>
       </label>

@@ -29,26 +29,30 @@ function TodoList({ initialTodos = [] }: TodoListProps) {
   };
 
   return (
-    <div>
-      <h1 className="text-2xl font-bold underline">todo lista rubrik</h1>
-      <ul>
-        {todos.map((todo, index) => (
-          <TodoItem
-            key={index}
-            text={todo.text}
-            done={todo.done}
-            onToggle={() => toggleTodo(index)}
+    <div className="flex justify-center items-center h-screen bg-slate-200">
+      <div className="bg-white p-6 rounded shadow-md w-full max-w-md ">
+        <h1 className="text-2xl font-bold mb-4 text-center">Todo</h1>
+        <ul className="mb-5 p-4">
+          {todos.map((todo, index) => (
+            <TodoItem
+              key={index}
+              text={todo.text}
+              done={todo.done}
+              onToggle={() => toggleTodo(index)}             
+            />
+          ))}
+        </ul>
+        <div className="flex gap-2">
+          <input
+            type="text"
+            value={newTodo}
+            onChange={(e) => setNewTodo(e.target.value)}
+            placeholder="Skriv ny todo..."
+            className="flex-1 p-2 border-1 rounded"
           />
-        ))}
-      </ul>
-      <input
-        type="
-      text"
-        value={newTodo}
-        onChange={(e) => setNewTodo(e.target.value)}
-        placeholder="Skriv ny todo..."
-      />
-      <button onClick={addTodo}>Lägg till</button>
+          <button onClick={addTodo} className="bg-slate-700 text-white px-4 rounded hover:bg-slate-900">Lägg till</button>
+        </div>
+      </div>
     </div>
   );
 }
