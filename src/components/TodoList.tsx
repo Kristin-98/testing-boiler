@@ -1,4 +1,5 @@
 import { useState } from "react";
+import RandomTodo from "./RandomTodo";
 import TodoItem from "./TodoItem";
 
 type Todo = {
@@ -15,6 +16,7 @@ function TodoList({ initialTodos = [] }: TodoListProps) {
     initialTodos.map((t) => ({ text: t, done: false }))
   );
   const [newTodo, setNewTodo] = useState("");
+  const [highlight, setHighlight] = useState<string | null>(null);
 
   const addTodo = () => {
     if (newTodo.trim() === "") return;
@@ -63,6 +65,11 @@ function TodoList({ initialTodos = [] }: TodoListProps) {
             Lägg till
           </button>
         </div>
+        <RandomTodo
+          todos={todos.map((t) => t.text)}
+          onPick={(todo) => setHighlight(todo)}
+        />
+        {highlight && <p>Börja med: {highlight}</p>}
       </form>
     </div>
   );
