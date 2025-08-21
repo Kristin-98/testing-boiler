@@ -30,7 +30,13 @@ function TodoList({ initialTodos = [] }: TodoListProps) {
 
   return (
     <div className="flex justify-center items-center h-screen bg-slate-200">
-      <div className="bg-white p-6 rounded shadow-md w-full max-w-md ">
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          addTodo();
+        }}
+        className="bg-white p-6 rounded shadow-md w-full max-w-md "
+      >
         <h1 className="text-2xl font-bold mb-4 text-center">Todo</h1>
         <ul className="mb-5 p-4">
           {todos.map((todo, index) => (
@@ -38,7 +44,7 @@ function TodoList({ initialTodos = [] }: TodoListProps) {
               key={index}
               text={todo.text}
               done={todo.done}
-              onToggle={() => toggleTodo(index)}             
+              onToggle={() => toggleTodo(index)}
             />
           ))}
         </ul>
@@ -50,9 +56,14 @@ function TodoList({ initialTodos = [] }: TodoListProps) {
             placeholder="Skriv ny todo..."
             className="flex-1 p-2 border-1 rounded"
           />
-          <button onClick={addTodo} className="bg-slate-700 text-white px-4 rounded hover:bg-slate-900">Lägg till</button>
+          <button
+            onClick={addTodo}
+            className="bg-slate-700 text-white px-4 rounded hover:bg-slate-900"
+          >
+            Lägg till
+          </button>
         </div>
-      </div>
+      </form>
     </div>
   );
 }

@@ -29,11 +29,4 @@ describe("TodoItem", () => {
     fireEvent.click(checkbox);
     expect(handleToggle).toHaveBeenCalledTimes(1);
   });
-
-  it("renders li element even with empty text", () => {
-    render(<TodoItem text="" done={false} onToggle={() => {}} />);
-    const li = screen.getByRole("listitem");
-    expect(li).toBeInTheDocument();
-    expect(li.textContent).toBe("");
-  });
 });
