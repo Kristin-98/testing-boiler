@@ -20,7 +20,7 @@ describe("RandomTodo", () => {
     expect(mockFn).toHaveBeenCalledWith("Mockad todo");
   });
 
-  it("uses default random picker if no getRandomTodo is provided", () => {
+  it("picks the first todo when Math.random returns 0", () => {
     const mockFn = vi.fn();
     vi.spyOn(Math, "random").mockReturnValue(0);
 
@@ -31,11 +31,32 @@ describe("RandomTodo", () => {
     vi.restoreAllMocks();
   });
 
-  it("does nothing when todos is empty", () => {
-  const mockFn = vi.fn();
-  render(<RandomTodo todos={[]} onPick={mockFn} />);
-  fireEvent.click(screen.getByText("Slumpa en todo"));
-  expect(mockFn).not.toHaveBeenCalled();
-});
+  it("picks the second todo when Math.random returns 0.5", () => {
+    const mockFn = vi.fn();
+    vi.spyOn(Math, "random").mockReturnValue(0.5);
 
+    render(<RandomTodo todos={["X", "Y", "Z"]} onPick={mockFn} />);
+    fireEvent.click(screen.getByText("Slumpa en todo"));
+    expect(mockFn).toHaveBeenCalledWith("Y");
+
+    vi.restoreAllMocks();
+  });
+
+  it("picks the third todo when Math.random returns 0.99", () => {
+    const mockFn = vi.fn();
+    vi.spyOn(Math, "random").mockReturnValue(0.99);
+
+    render(<RandomTodo todos={["X", "Y", "Z"]} onPick={mockFn} />);
+    fireEvent.click(screen.getByText("Slumpa en todo"));
+    expect(mockFn).toHaveBeenCalledWith("Z");
+
+    vi.restoreAllMocks();
+  });
+
+  it("does nothing when todos is empty", () => {
+    const mockFn = vi.fn();
+    render(<RandomTodo todos={[]} onPick={mockFn} />);
+    fireEvent.click(screen.getByText("Slumpa en todo"));
+    expect(mockFn).not.toHaveBeenCalled();
+  });
 });
