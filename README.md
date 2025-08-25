@@ -1,4 +1,18 @@
-# Kodbas för Enhets- och integrationstestning av React komponenter.
+# Todo App – React
+
+Detta är en enkel Todo-applikation byggd med React. Appen tillåter användare att lägga till, markera som klar och slumpa ut en todo. Den är byggd med komponentbaserad struktur och testad med både enhets- och integrationstester.
+
+## Funktioner
+
+- Lägg till nya todos
+- Markera todos som klara / inte klara
+- Slumpa en todo att börja med (RandomTodo-komponent)
+
+## Komponenter
+
+- **TodoList** – Huvudkomponenten som hanterar listan av todos, inputfält och slumpa-knappen.  
+- **RandomTodo** – En komponent som slumpmässigt väljer en todo från TodoList.  
+- **TodoItem** – Representerar en enskild todo med checkbox för klar/inte klar. 
 
 ## Installation
 
