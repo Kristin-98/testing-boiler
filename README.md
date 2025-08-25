@@ -1,6 +1,7 @@
 # Todo App – React
 
 Detta är en enkel Todo-applikation byggd med React. Appen tillåter användare att lägga till, markera som klar och slumpa ut en todo. Den är byggd med komponentbaserad struktur och testad med både enhets- och integrationstester.
+Projektet använder **Tailwind CSS** för styling.
 
 ## Funktioner
 
